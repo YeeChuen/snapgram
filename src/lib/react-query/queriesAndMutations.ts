@@ -8,8 +8,10 @@ import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "../../types";
 import {
   createPost,
   createUserAccount,
+  deleteFollowUser,
   deletePost,
   deleteSavedPost,
+  followUser,
   getCurrentUser,
   getInfinitePosts,
   getPostById,
@@ -199,7 +201,6 @@ export const useSearchPosts = (searchTerm: string) => {
   });
 };
 
-
 // Get users
 export const useGetUsers = (limit?: number) => {
   return useQuery({
@@ -226,6 +227,44 @@ export const useUpdateUser = () => {
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER_BY_ID, data?.$id],
+      });
+    },
+  });
+};
+
+export const useFollowUser = (userId: string, followUserId: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      userId,
+      followUserId,
+    }: {
+      userId: string;
+      followUserId: string;
+    }) => followUser(userId, followUserId),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_USER_BY_ID, followUserId],
+      });
+    },
+  });
+};
+
+export const useDeleteFollowUser = (userId: string, followUserId: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ followId }: { followId: string }) => {
+      return deleteFollowUser(followId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_USER_BY_ID, followUserId],
       });
     },
   });

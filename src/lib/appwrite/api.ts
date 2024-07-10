@@ -469,3 +469,39 @@ export async function updateUser(user: IUpdateUser) {
     console.log(error);
   }
 }
+
+export async function followUser(userId: string, followUserId: string) {
+  try {
+    const newFollow = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.followsCollectionId,
+      ID.unique(),
+      {
+        users: userId,
+        users_following: followUserId,
+      }
+    );
+
+    if (!newFollow) throw Error;
+
+    return newFollow;
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function deleteFollowUser(followId: string) {
+  if (!followId) throw Error;
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.followsCollectionId,
+      followId
+    );
+
+    if (!statusCode) throw Error;
+
+    return { status: "ok", code: statusCode };
+  } catch (error) {
+    console.log(error);
+  }
+}

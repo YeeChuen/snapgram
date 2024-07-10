@@ -7,11 +7,17 @@ import {
   useLocation,
 } from "react-router-dom";
 import { useUserContext } from "../../context/AuthContext";
-import { useGetUserById } from "../../lib/react-query/queriesAndMutations";
+import {
+  useDeleteFollowUser,
+  useFollowUser,
+  useGetUserById,
+} from "../../lib/react-query/queriesAndMutations";
 import Loader from "../../components/shared/Loader";
 import { Button } from "../../components/ui/button";
 import GridPostList from "../../components/shared/GridPostList";
 import LikedPosts from "./LikedPosts";
+import { Models } from "appwrite";
+import { useEffect, useState } from "react";
 
 interface StabBlockProps {
   value: string | number;
@@ -31,6 +37,25 @@ const Profile = () => {
   const { pathname } = useLocation();
 
   const { data: currentUser } = useGetUserById(id || "");
+  const { data: loginUser } = useGetUserById(user.id || "");
+
+  const [isFollowing, setIsFollowing] = useState(false);
+
+  const { mutate: followUser, isPending: isFollowingUser } = useFollowUser(
+    user.id || "",
+    id || ""
+  );
+
+  const { mutate: deleteFollowUser, isPending: isDeletingFollowUser } =
+    useDeleteFollowUser(user.id || "", id || "");
+
+  const followRecordId = loginUser?.follows.find((record: Models.Document) => {
+    return record.users_following.$id === currentUser?.$id;
+  });
+
+  useEffect(() => {
+    setIsFollowing(followRecordId ? true : false);
+  }, [followRecordId]);
 
   if (!currentUser)
     return (
@@ -38,6 +63,21 @@ const Profile = () => {
         <Loader />
       </div>
     );
+
+  if (!id)
+    return <div className="flex-center w-full h-full">No such profile</div>;
+
+  const handleFollow = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (followRecordId) {
+      deleteFollowUser({ followId: followRecordId.$id });
+      setIsFollowing(false);
+    } else {
+      followUser({ userId: user.id, followUserId: id });
+      setIsFollowing(true);
+    }
+  };
 
   return (
     <div className="profile-container">
@@ -62,8 +102,11 @@ const Profile = () => {
 
             <div className="flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20">
               <StatBlock value={currentUser.posts.length} label="Posts" />
-              <StatBlock value={0} label="Followers" />
-              <StatBlock value={0} label="Following" />
+              <StatBlock
+                value={currentUser.follower.length}
+                label="Followers"
+              />
+              <StatBlock value={currentUser.follows.length} label="Following" />
             </div>
 
             <p className="small-medium md:base-medium text-center xl:text-left mt-7 max-w-screen-sm">
@@ -91,8 +134,13 @@ const Profile = () => {
               </Link>
             </div>
             <div className={`${user.id === id && "hidden"}`}>
-              <Button type="button" className="shad-button_primary px-8" onClick={() => console.log("follow")}>
-                Follow
+              <Button
+                type="button"
+                className="shad-button_primary px-8"
+                onClick={handleFollow}
+                disabled={isFollowingUser || isDeletingFollowUser}
+              >
+                {isFollowing ? "Following" : "Follow"}
               </Button>
             </div>
           </div>
