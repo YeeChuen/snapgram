@@ -1,6 +1,6 @@
 # SnapGram
 
-[Website](www.google.com)
+[SnapGram](https://snapgram-v1.vercel.app/)
 
 Snapgram is an Instagram-like social media application designed for users to share their lifestyle and experiences through photos, enabling them to spread the joy and excitement of their personal lives with a global audience.
 
