@@ -81,7 +81,7 @@ const Explore = () => {
                 />
                 <SelectValue placeholder="filter" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent style={{backgroundColor: "black"}}>
                 <SelectItem value="All">All</SelectItem>
                 <SelectItem value="Newest">Newest</SelectItem>
                 <SelectItem value="Oldest">Oldest</SelectItem>
