@@ -57,6 +57,16 @@ export const checkIsLiked = (likeList: string[], userId: string) => {
   return likeList.includes(userId);
 };
 
+export function formatDateToSeconds(dateString: string) {
+  const currentDate = new Date();
+  const inputDate = new Date(dateString);
+
+  const timeDifference = currentDate.getTime() - inputDate.getTime();
+  const secondsDifference = timeDifference / 1000;
+
+  return secondsDifference
+}
+
 export function formatDate(dateString: string) {
   const currentDate = new Date();
   const inputDate = new Date(dateString);

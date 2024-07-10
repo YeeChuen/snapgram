@@ -4,11 +4,13 @@ import Loader from "./Loader";
 type SearchResultsProps = {
   isSearchFetching: boolean;
   searchedPosts: any;
+  filterBy?: string | undefined;
 };
 
 const SearchResults = ({
   isSearchFetching,
   searchedPosts,
+  filterBy = "All",
 }: SearchResultsProps) => {
   if (isSearchFetching) {
     return (
@@ -19,7 +21,7 @@ const SearchResults = ({
   }
 
   if (searchedPosts && searchedPosts.documents.length > 0) {
-    return <GridPostList posts={searchedPosts.documents} />;
+    return <GridPostList posts={searchedPosts.documents} filterBy={filterBy} />;
   }
 
   return (

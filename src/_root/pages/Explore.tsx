@@ -10,12 +10,20 @@ import {
 } from "../../lib/react-query/queriesAndMutations";
 
 import { useInView } from "react-intersection-observer";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select";
 
 const Explore = () => {
   const { ref, inView } = useInView();
   const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
 
   const [searchValue, setSearchValue] = useState("");
+  const [filter, setFilter] = useState("All");
 
   const debouncedValue = useDebounce(searchValue, 500);
   const { data: searchedPosts, isFetching: isSearchFetching } =
@@ -62,13 +70,25 @@ const Explore = () => {
         <div className="flex-between w-full max-w-5xl mt-16 mb-7">
           <h3 className="body-bold md:h3-bold">Popular Today</h3>
           <div className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2 cursor-pointer">
-            <p className="small-medium md:base-medium text-light-2">All</p>
-            <img
-              src="/assets/icons/filter.svg"
-              width={20}
-              height={20}
-              alt="filter"
-            />
+            <Select onValueChange={(e) => setFilter(e)}>
+              <SelectTrigger className="small-medium md:base-medium text-light-2">
+                <img
+                  src="/assets/icons/filter.svg"
+                  width={20}
+                  height={20}
+                  alt="filter"
+                  style={{ marginRight: "10px" }}
+                />
+                <SelectValue placeholder="filter" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="All">All</SelectItem>
+                <SelectItem value="Newest">Newest</SelectItem>
+                <SelectItem value="Oldest">Oldest</SelectItem>
+                <SelectItem value="Update">Update</SelectItem>
+                <SelectItem value="Likes">Likes</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
@@ -77,6 +97,7 @@ const Explore = () => {
             <SearchResults
               isSearchFetching={isSearchFetching}
               searchedPosts={searchedPosts}
+              filterBy={filter}
             />
           ) : shouldShowPosts ? (
             <p className="text-light-4 mt-10 text-center w-full">
@@ -86,7 +107,11 @@ const Explore = () => {
             posts.pages.map((item, index) => {
               return (
                 item && (
-                  <GridPostList key={`page-${index}`} posts={item.documents} />
+                  <GridPostList
+                    key={`page-${index}`}
+                    posts={item.documents}
+                    filterBy={filter}
+                  />
                 )
               );
             })

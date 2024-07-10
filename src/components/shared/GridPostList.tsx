@@ -2,19 +2,51 @@ import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../context/AuthContext";
 import PostStats from "./PostStats";
+import { formatDateToSeconds } from "../../lib/utils";
 
 type GridPostListProps = {
   posts: Models.Document[];
   showUser?: boolean;
   showStats?: boolean;
+  filterBy?: string | undefined;
 };
 
 const GridPostList = ({
   posts,
   showUser = true,
   showStats = true,
+  filterBy = "All",
 }: GridPostListProps) => {
   const { user } = useUserContext();
+
+  switch (filterBy) {
+    case "Newest":
+      posts.sort((a, b) => {
+        return (
+          formatDateToSeconds(a.$createdAt) - formatDateToSeconds(b.$createdAt)
+        );
+      });
+      break;
+    case "Oldest":
+      posts.sort((a, b) => {
+        return (
+          formatDateToSeconds(b.$createdAt) - formatDateToSeconds(a.$createdAt)
+        );
+      });
+      break;
+    case "Update":
+      posts.sort((a, b) => {
+        return (
+          formatDateToSeconds(a.$updatedAt) - formatDateToSeconds(b.$updatedAt)
+        );
+      });
+      break;
+    case "Likes":
+      posts.sort((a, b) => {
+        return b.likes.length - a.likes.length;
+      });
+      break;
+  }
 
   return (
     <ul className="grid-container">
