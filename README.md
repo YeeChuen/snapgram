@@ -2,7 +2,7 @@
 
 [SnapGram](https://snapgram-v1.vercel.app/)
 
-Snapgram is an Instagram-like social media application designed for users to share their lifestyle and experiences through photos, enabling them to spread the joy and excitement of their personal lives with a global audience.
+Inpired by Instagram, Snapgram is an social media platform designed for users to share their lifestyle and experiences through photos, enabling them to spread the joy and excitement of their personal lives with a global audience.
 
 Project credit to: [Youtube](https://www.youtube.com/watch?v=_W3R2VwRyF4)
 
