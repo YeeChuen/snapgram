@@ -1,0 +1,64 @@
+AppWrite
+    - for backend database, authentication
+
+Vite
+    - build tool
+    `npm create vite@latest .`
+
+Tailwind css
+    - utility first css framework
+    - https://tailwindcss.com/
+    `npm install -D tailwindcss postcss autoprefixer`
+    `npx tailwindcss init -p`
+    `npm install -D tailwindcss-animate`
+
+React Router
+    - for nagivation
+    `npm install react-router-dom`
+
+Directory structure
+    - _auth
+        > private
+    - _root
+        > public
+        > index.ts
+            help ensure tidy and readable code structure,
+            used to export components
+
+shadcn
+    - https://ui.shadcn.com/docs/installation/vite
+    - styling library
+    - similar to material UI
+    - used with tailwind
+    `npm i -D @types/node`
+    `npx shadcn-ui@latest init`
+        - yes
+        - default
+        - slate
+        - src/globals.css
+        - yes
+        - <blank>
+        - tailwind.config.js
+        - enter,
+        - enter,
+        - yes,
+        - yes 
+    - example usage
+        to install button
+        `npx shadcn-ui@latest add button`
+
+Tan Stack (Reacy Query)
+    https://tanstack.com/
+    - Auto Caching
+    - Infinite Scroll
+    - more
+    `npm i @tanstack/react-query`
+
+React Dropzone
+    - drag and drop file
+    `npm install --save react-dropzone'
+
+React Intersection-observer
+    - useInView, can be used for infinite scrolling 
+    - to detech when we reach the bottom of the page.
+    `npm install react-intersection-observer --save` 
