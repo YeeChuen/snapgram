@@ -4,6 +4,8 @@
 
 Snapgram is an Instagram-like social media application designed for users to share their lifestyle and experiences through photos, enabling them to spread the joy and excitement of their personal lives with a global audience.
 
+Project credit to: [Youtube](https://www.youtube.com/watch?v=_W3R2VwRyF4)
+
 ## Project Goal
 
 The goal of this project is to experience, learn, and develop a web application with essential user features, focusing on building a social media application. This experience is crucial as user login features are a common component in many web applications. Learning to create a basic social media app provides foundational knowledge that can be applied to various other use cases beyond social media. Additionally, this project involves leveraging a relational database management system to define relationships between entities, such as users and posts. Understanding the code and directory structure for a large-scale social media project is another key objective, equipping me with the skills to handle complex web development tasks efficiently.
