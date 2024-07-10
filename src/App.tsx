@@ -9,7 +9,7 @@ import "./globals.css";
 
 const App = () => {
   return (
-    <main className="h-screen w-screen">
+    <main className="flex h-screen w-full">
       <Routes>
         {/* Public Routes */}
         <Route element={<AuthLayout />}>
