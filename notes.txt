@@ -62,3 +62,5 @@ React Intersection-observer
     - useInView, can be used for infinite scrolling 
     - to detech when we reach the bottom of the page.
     `npm install react-intersection-observer --save` 
+
+Deploy on Vercel

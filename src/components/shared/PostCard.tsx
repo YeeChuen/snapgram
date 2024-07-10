@@ -1,8 +1,7 @@
 import { Models } from "appwrite";
-import React from "react";
 import { Link } from "react-router-dom";
-import { formatDate } from "../../lib/utils";
 import { useUserContext } from "../../context/AuthContext";
+import { formatDate } from "../../lib/utils";
 import PostStats from "./PostStats";
 
 type PostCardProps = {

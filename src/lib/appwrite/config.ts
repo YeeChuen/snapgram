@@ -1,6 +1,6 @@
 /* import all appwrite functionalities */
 
-import { Client, Account, Databases, Storage, Avatars } from "appwrite";
+import { Account, Avatars, Client, Databases, Storage } from "appwrite";
 
 /* 667228fa002a06fef511 */
 

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Input } from "../../components/ui/input";
+import { useEffect, useState } from "react";
 import GridPostList from "../../components/shared/GridPostList";
+import Loader from "../../components/shared/Loader";
 import SearchResults from "../../components/shared/SearchResults";
+import { Input } from "../../components/ui/input";
+import useDebounce from "../../hooks/useDebounce";
 import {
   useGetPosts,
   useSearchPosts,
 } from "../../lib/react-query/queriesAndMutations";
-import useDebounce from "../../hooks/useDebounce";
-import Loader from "../../components/shared/Loader";
 
 import { useInView } from "react-intersection-observer";
 

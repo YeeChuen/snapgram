@@ -10,18 +10,18 @@ import {
 import { Input } from "../../components/ui/input";
 
 /* Zod imports */
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { SignupValidation } from "../../lib/validation";
-import Loader from "../../components/shared/Loader";
 import { Link, useNavigate } from "react-router-dom";
+import * as z from "zod";
+import Loader from "../../components/shared/Loader";
 import { useToast } from "../../components/ui/use-toast";
+import { useUserContext } from "../../context/AuthContext";
 import {
   useCreateUserAccount,
   useSignInAccount,
 } from "../../lib/react-query/queriesAndMutations";
-import { useUserContext } from "../../context/AuthContext";
+import { SignupValidation } from "../../lib/validation";
 
 const SignupForm = () => {
   const { toast } = useToast();

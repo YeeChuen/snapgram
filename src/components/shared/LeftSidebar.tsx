@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { sidebarLinks } from "../../constants";
 import { useUserContext } from "../../context/AuthContext";
 import { useSignOutAccount } from "../../lib/react-query/queriesAndMutations";
-import { sidebarLinks } from "../../constants";
 import { INavLink } from "../../types";
 import { Button } from "../ui/button";
 
