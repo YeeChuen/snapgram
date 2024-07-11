@@ -1,10 +1,13 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../components/shared/Loader";
 import PostStats from "../../components/shared/PostStats";
 import { Button } from "../../components/ui/button";
 import { useUserContext } from "../../context/AuthContext";
-import { useGetPostById } from "../../lib/react-query/queriesAndMutations";
+import {
+  useDeletePost,
+  useGetPostById,
+} from "../../lib/react-query/queriesAndMutations";
 import { formatDate } from "../../lib/utils";
 
 const PostDetails = () => {
@@ -12,11 +15,22 @@ const PostDetails = () => {
   const { data: post, isPending } = useGetPostById(id || "");
   const { user } = useUserContext();
 
-  const handleDeletePost = (e: React.MouseEvent) => {};
+  const navigate = useNavigate();
+
+  const { mutate: deletePost, isPending: isDeleting } = useDeletePost();
+
+  const handleDeletePost = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    console.log("delete post");
+    if (post) {
+      // deletePost({ postId: post.$id, imageId: post.imageId });
+      navigate(`/profile/${user.id}`);
+    }
+  };
 
   return (
     <div className="post_details-container">
-      {isPending ? (
+      {isPending || isDeleting ? (
         <Loader />
       ) : (
         <div className="post_details-card">
