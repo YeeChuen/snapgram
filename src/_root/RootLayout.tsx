@@ -7,7 +7,6 @@ import { useUserContext } from "../context/AuthContext";
 const RootLayout = () => {
   const { isAuthenticated } = useUserContext();
 
-  console.log(isAuthenticated);
   return (
     <>
       {!isAuthenticated ? (
